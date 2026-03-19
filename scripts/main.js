@@ -8,9 +8,18 @@ function makeGraffiti(id, dark = true) {
                  'RETRATO','MODA','EDICIÓN','VIDEO','REDES','CONTENT'];
   const ns = 'http://www.w3.org/2000/svg';
   const svg = document.createElementNS(ns, 'svg');
-  svg.setAttribute('viewBox','0 0 1000 800');
+  const cam = document.createElementNS(ns, 'path');
+
   for (let i = 0; i < 60; i++) {
-    const t = document.createElementNS(ns, 'text');
+    if(Math.random() < 0.1){
+      cam.setAttribute('d', 'M8.293 4.293A1 1 0 0 1 9 4h6a1 1 0 0 1 .707.293L17.414 6H20a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h2.586l1.707-1.707zM9.414 6L7.707 7.707A1 1 0 0 1 7 8H4v10h16V8h-3a1 1 0 0 1-.707-.293L14.586 6H9.414zM12 10.5a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-4 2a4 4 0 1 1 8 0 4 4 0 0 1-8 0z');
+      cam.setAttribute('fill', dark ? '#fff' : '#000');
+      cam.setAttribute('opacity', 0.3 + Math.random() * 0.7);
+      cam.setAttribute('transform', `translate(${Math.random() * 1000}, ${Math.random() * 800}) scale(2.5) rotate(${Math.random() * 360})`);
+      svg.setAttribute('viewBox','0 0 1000 800');
+      svg.appendChild(cam.cloneNode());} 
+    else{
+const t = document.createElementNS(ns, 'text');
     t.setAttribute('x', Math.random() * 1000);
     t.setAttribute('y', Math.random() * 800);
     t.setAttribute('font-size', 12 + Math.random() * 40);
@@ -20,6 +29,8 @@ function makeGraffiti(id, dark = true) {
     t.setAttribute('opacity', 0.3 + Math.random() * 0.7);
     t.textContent = words[Math.floor(Math.random() * words.length)];
     svg.appendChild(t);
+    }
+    
   }
   el.appendChild(svg);
 }

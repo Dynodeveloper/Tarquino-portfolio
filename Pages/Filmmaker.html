@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Filmmaker — Nicolás Tarquino</title>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Dancing+Script:wght@700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="/Styles/Styles.css"/>
+  <style>
+    #descripcion {
+      background: var(--white); color: var(--black);
+      padding: 6rem 2.5rem;
+    }
+    #descripcion .inner {
+      max-width: 1100px; margin: auto;
+      display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 6rem; align-items: center;
+    }
+    .desc-text p { font-size: 0.82rem; line-height: 1.9; color: #555; margin-bottom: 1rem; }
+    .desc-tags { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1.5rem; }
+    .desc-tag {
+      font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase;
+      border: 1px solid rgba(0,0,0,0.2); padding: 0.4rem 0.9rem; color: #555;
+    }
+    .desc-ref {
+      position: relative; aspect-ratio: 2/3; overflow: hidden; background: var(--black);
+    }
+    .desc-ref video, .desc-ref img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+    }
+    .desc-ref .ph {
+      width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 0.5rem;
+      font-size: 0.65rem; letter-spacing: 0.3em; color: #333; text-transform: uppercase;
+    }
+    .ph-icon { font-size: 1.5rem; opacity: 0.2; }
+
+    /* cinematic reel strip */
+    .reel-strip {
+      background: var(--black); padding: 2rem 0;
+      border-top: 1px solid #1a1a1a; border-bottom: 1px solid #1a1a1a;
+      overflow: hidden;
+    }
+    .reel-track {
+      display: flex; gap: 2rem; align-items: center;
+      animation: scrollTrack 20s linear infinite;
+      white-space: nowrap;
+    }
+    .reel-item {
+      font-family: 'Anton', sans-serif;
+      font-size: 1rem; letter-spacing: 0.3em; text-transform: uppercase;
+      color: #222; flex-shrink: 0;
+    }
+    .reel-item.accent { color: #444; }
+    @keyframes scrollTrack {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    #galeria { background: var(--black); padding: 4rem 2.5rem 8rem; }
+    #galeria .inner { max-width: 1200px; margin: auto; }
+    .gallery-title {
+      font-family: 'Anton', sans-serif;
+      font-size: clamp(2rem, 5vw, 4rem);
+      text-transform: uppercase; color: var(--white); margin-bottom: 2rem;
+    }
+
+    /* cinematic widescreen grid */
+    .film-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.8rem;
+    }
+    .film-item {
+      position: relative; overflow: hidden; cursor: pointer;
+      background: #111; aspect-ratio: 16/9;
+    }
+    .film-item.tall { aspect-ratio: 4/3; }
+    .film-item.feature { grid-column: span 2; aspect-ratio: 21/9; }
+
+    .film-item video, .film-item img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      transition: transform 0.7s ease;
+    }
+    .film-item:hover video, .film-item:hover img { transform: scale(1.03); }
+    .film-item .fph {
+      width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 0.6rem;
+      font-size: 0.6rem; letter-spacing: 0.25em; color: #333; text-transform: uppercase;
+      transition: transform 0.7s ease;
+    }
+    .film-item:hover .fph { transform: scale(1.03); }
+
+    .film-item .overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 55%);
+      opacity: 0; transition: opacity 0.4s;
+      display: flex; flex-direction: column; align-items: flex-start;
+      justify-content: flex-end; padding: 1.5rem;
+    }
+    .film-item:hover .overlay { opacity: 1; }
+    .overlay-title {
+      font-family: 'Anton', sans-serif; font-size: 1.2rem; letter-spacing: 0.05em;
+      text-transform: uppercase; color: var(--white); line-height: 1;
+    }
+    .overlay-text { font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gray); margin-top: 0.3rem; }
+
+    .play-badge {
+      position: absolute; top: 0.8rem; right: 0.8rem;
+      background: rgba(255,255,255,0.12); backdrop-filter: blur(4px);
+      padding: 0.3rem 0.7rem;
+      font-size: 0.55rem; letter-spacing: 0.15em; color: var(--white); text-transform: uppercase;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    @media (max-width: 768px) {
+      #descripcion .inner { grid-template-columns: 1fr; }
+      .film-grid { grid-template-columns: 1fr; }
+      .film-item.feature { grid-column: span 1; aspect-ratio: 16/9; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="logo" href="/index.html">Nicolás Tarquino</a>
+    <ul>
+      <li><a href="/index.html">Inicio</a></li>
+      <li><a href="/Pages/Fotografia.html">Fotografía</a></li>
+      <li><a href="/Pages/Edicion.html">Edición</a></li>
+      <li><a href="/Pages/Redes.html">Redes Sociales</a></li>
+      <li><a href="/Pages/Filmmaker.html">Filmmaker</a></li>
+      <li><a href="/index.html#contacto">Contacto</a></li>
+    </ul>
+  </nav>
+
+  <div class="page-hero">
+    <div class="graffiti-bg" id="g-hero"></div>
+    <h1 class="page-hero-title">Film<span>maker</span></h1>
+    <p class="page-hero-sub">producción audiovisual</p>
+  </div>
+
+  <!-- DESCRIPCIÓN -->
+  <section id="descripcion" class="light">
+    <div class="graffiti-bg" id="g-desc"></div>
+    <div class="inner">
+      <div class="desc-text reveal">
+        <h2 class="section-heading">Historia<br>en movimiento</h2>
+        <p class="section-sub" style="margin-bottom:1.5rem;">dirección & producción</p>
+        <p>La imagen en movimiento es mi pasión. Dirijo y produzco videos musicales, spots publicitarios y documentales cortos con una narrativa visual que va más allá del simple registro.</p>
+        <p>Cada proyecto tiene una dirección de arte definida: paleta de colores, composición y ritmo de edición construidos para contar una historia específica.</p>
+        <div class="desc-tags">
+          <span class="desc-tag">Video Musical</span>
+          <span class="desc-tag">Spot Publicitario</span>
+          <span class="desc-tag">Documental</span>
+          <span class="desc-tag">Dirección de Arte</span>
+          <span class="desc-tag">Color Grading</span>
+        </div>
+      </div>
+      <div class="desc-ref reveal reveal-delay-2">
+        <!-- <video src="./video/filmmaker-ref.mp4" autoplay muted loop playsinline></video> -->
+        <div class="ph g1">
+          <span class="ph-icon">▶</span>
+          <span>Showreel</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REEL STRIP -->
+  <div class="reel-strip">
+    <div class="reel-track">
+      <span class="reel-item">VIDEO MUSICAL</span><span class="reel-item accent">◆</span>
+      <span class="reel-item">SPOT</span><span class="reel-item accent">◆</span>
+      <span class="reel-item">DOCUMENTAL</span><span class="reel-item accent">◆</span>
+      <span class="reel-item">DIRECCIÓN</span><span class="reel-item accent">◆</span>
+      <span class="reel-item">PRODUCCIÓN</span><span class="reel-item accent">◆</span>
+      <span class="reel-item">BOGOTÁ</span><span class="reel-item accent">◆</span>
+      <!-- duplicate for loop -->
+      <span class="reel-item">VIDEO MUSICAL</span><span class="reel-item accent">◆</span>
+      <span class="reel-item">SPOT</span><span class="reel-item accent">◆</span>
+      <span class="reel-item">DOCUMENTAL</span><span class="reel-item accent">◆</span>
+      <span class="reel-item">DIRECCIÓN</span><span class="reel-item accent">◆</span>
+      <span class="reel-item">PRODUCCIÓN</span><span class="reel-item accent">◆</span>
+      <span class="reel-item">BOGOTÁ</span><span class="reel-item accent">◆</span>
+    </div>
+  </div>
+
+  <!-- GALERÍA -->
+  <section id="galeria">
+    <div class="inner">
+      <h3 class="gallery-title reveal">Proyectos</h3>
+      <div class="film-grid">
+
+        <div class="film-item feature reveal g1">
+          <!-- <video src="./video/film-showreel.mp4" autoplay muted loop playsinline></video> -->
+          <div class="fph g1"><span class="ph-icon" style="font-size:2rem;">▶</span><span>Showreel 2024</span></div>
+          <span class="play-badge">▶ Showreel</span>
+          <div class="overlay">
+            <div class="overlay-title">Showreel 2024</div>
+            <div class="overlay-text">Compilado — Bogotá, CO</div>
+          </div>
+        </div>
+
+        <div class="film-item reveal g2">
+          <!-- <video src="./video/film-mv.mp4" autoplay muted loop playsinline></video> -->
+          <div class="fph g2"><span class="ph-icon">▶</span><span>Video Musical 01</span></div>
+          <span class="play-badge">Video</span>
+          <div class="overlay">
+            <div class="overlay-title">Video Musical</div>
+            <div class="overlay-text">Artista — 2024</div>
+          </div>
+        </div>
+
+        <div class="film-item reveal g3">
+          <!-- <video src="./video/film-spot.mp4" autoplay muted loop playsinline></video> -->
+          <div class="fph g3"><span class="ph-icon">▶</span><span>Spot 02</span></div>
+          <span class="play-badge">Video</span>
+          <div class="overlay">
+            <div class="overlay-title">Spot Marca</div>
+            <div class="overlay-text">Comercial — 2024</div>
+          </div>
+        </div>
+
+        <div class="film-item tall reveal g4">
+          <!-- <video src="./video/film-doc.mp4" autoplay muted loop playsinline></video> -->
+          <div class="fph g4"><span class="ph-icon">▶</span><span>Documental 03</span></div>
+          <span class="play-badge">Video</span>
+          <div class="overlay">
+            <div class="overlay-title">Documental</div>
+            <div class="overlay-text">Corto — 2024</div>
+          </div>
+        </div>
+
+        <div class="film-item tall reveal g5">
+          <!-- <video src="./video/film-mv2.mp4" autoplay muted loop playsinline></video> -->
+          <div class="fph g5"><span class="ph-icon">▶</span><span>Video Musical 04</span></div>
+          <span class="play-badge">Video</span>
+          <div class="overlay">
+            <div class="overlay-title">Video Musical</div>
+            <div class="overlay-text">Artista — 2024</div>
+          </div>
+        </div>
+
+        <div class="film-item feature reveal g6">
+          <!-- <video src="./video/film-event.mp4" autoplay muted loop playsinline></video> -->
+          <div class="fph g6"><span class="ph-icon">▶</span><span>Evento 05</span></div>
+          <span class="play-badge">Video</span>
+          <div class="overlay">
+            <div class="overlay-title">Cobertura Evento</div>
+            <div class="overlay-text">Live — 2024</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span class="logo">Nicolás Tarquino</span>
+    <p>© 2024 — Todos los derechos reservados</p>
+    <p>Bogotá, Colombia</p>
+  </footer>
+
+  <script src="/Scripts/Main.js"></script>
+  <script>
+    makeGraffiti('g-hero', true);
+    makeGraffiti('g-desc', false);
+  </script>
+</body>
+</html>

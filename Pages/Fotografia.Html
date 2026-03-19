@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Fotografía — Nicolás Tarquino</title>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Dancing+Script:wght@700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="/Styles/Styles.css"/>
+  <style>
+    /* ── FILTER TABS ── */
+    .filter-bar {
+      position: sticky; top: 64px; z-index: 50;
+      background: var(--black);
+      border-bottom: 1px solid #1a1a1a;
+      padding: 0 2.5rem;
+      display: flex; gap: 0; overflow-x: auto;
+    }
+    .filter-bar::-webkit-scrollbar { display: none; }
+    .filter-btn {
+      background: none; border: none; cursor: pointer;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: #555; padding: 1.1rem 1.5rem;
+      position: relative; white-space: nowrap;
+      transition: color 0.3s ease;
+    }
+    .filter-btn::after {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+      height: 2px; background: var(--white);
+      transform: scaleX(0); transition: transform 0.3s ease;
+    }
+    .filter-btn:hover { color: var(--gray); }
+    .filter-btn.active { color: var(--white); }
+    .filter-btn.active::after { transform: scaleX(1); }
+
+    /* ── GALLERY SECTION ── */
+    #galeria { padding: 4rem 2.5rem 8rem; }
+
+    .gallery-wrap { max-width: 1200px; margin: auto; }
+
+    /* items filtered out */
+    .gallery-item { transition: opacity 0.4s ease, transform 0.4s ease; }
+    .gallery-item.hidden {
+      display: none;
+    }
+
+    /* grid layout variations */
+    .gallery-wrap .gallery {
+      grid-template-columns: repeat(3,1fr);
+    }
+    .gallery-item { aspect-ratio: 3/4; }
+    .gallery-item.wide { aspect-ratio: 16/9; grid-column: span 2; }
+    .gallery-item.tall { aspect-ratio: 2/3; grid-row: span 2; }
+
+    .gallery-item img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      transition: transform 0.6s ease;
+    }
+    .gallery-item:hover img { transform: scale(1.05); }
+
+    /* category tag on each item */
+    .item-tag {
+      position: absolute; top: 1rem; left: 1rem;
+      font-size: 0.55rem; letter-spacing: 0.2em; text-transform: uppercase;
+      background: rgba(0,0,0,0.6); color: var(--gray);
+      padding: 0.3rem 0.6rem; backdrop-filter: blur(4px);
+    }
+
+    @media (max-width: 768px) {
+      .gallery-wrap .gallery { grid-template-columns: 1fr 1fr; }
+      .gallery-item.wide { grid-column: span 2; }
+      .gallery-item.tall { grid-row: span 1; aspect-ratio: 3/4; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="logo" href="/index.html">Nicolás Tarquino</a>
+    <ul>
+      <li><a href="/index.html">Inicio</a></li>
+      <li><a href="/Pages/Fotografia.html">Fotografía</a></li>
+      <li><a href="/Pages/Edicion.html">Edición</a></li>
+      <li><a href="/Pages/Redes.html">Redes Sociales</a></li>
+      <li><a href="/Pages/Filmmaker.html">Filmmaker</a></li>
+      <li><a href="/index.html#contacto">Contacto</a></li>
+    </ul>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <div class="page-hero">
+    <div class="graffiti-bg" id="g-hero"></div>
+    <h1 class="page-hero-title">Foto<span>grafía</span></h1>
+    <p class="page-hero-sub">portafolio visual</p>
+  </div>
+
+  <!-- FILTER BAR -->
+  <div class="filter-bar">
+    <button class="filter-btn active" data-filter="all">Todo</button>
+    <button class="filter-btn" data-filter="moda">Moda</button>
+    <button class="filter-btn" data-filter="retrato">Retrato</button>
+    <button class="filter-btn" data-filter="urbano">Urbano</button>
+    <button class="filter-btn" data-filter="producto">Producto</button>
+    <button class="filter-btn" data-filter="editorial">Editorial</button>
+  </div>
+
+  <!-- GALLERY -->
+  <section id="galeria">
+    <div class="gallery-wrap">
+      <div class="gallery">
+
+        <!-- MODA -->
+        <div class="gallery-item wide reveal g1" data-cat="moda">
+          <!-- <img src="./img/foto-moda-1.jpg" alt="Moda 1"/> -->
+          <div class="placeholder">Foto Moda 01</div>
+          <span class="item-tag">Moda</span>
+          <div class="overlay"><span class="overlay-text">Editorial Moda — 2024</span></div>
+        </div>
+        <div class="gallery-item reveal g3" data-cat="moda">
+          <div class="placeholder">Foto Moda 02</div>
+          <span class="item-tag">Moda</span>
+          <div class="overlay"><span class="overlay-text">Moda Urbana — 2024</span></div>
+        </div>
+        <div class="gallery-item reveal g5" data-cat="moda">
+          <div class="placeholder">Foto Moda 03</div>
+          <span class="item-tag">Moda</span>
+          <div class="overlay"><span class="overlay-text">Lookbook — 2024</span></div>
+        </div>
+
+        <!-- RETRATO -->
+        <div class="gallery-item reveal g2" data-cat="retrato">
+          <div class="placeholder">Retrato 01</div>
+          <span class="item-tag">Retrato</span>
+          <div class="overlay"><span class="overlay-text">Retrato Artístico — 2024</span></div>
+        </div>
+        <div class="gallery-item wide reveal g4" data-cat="retrato">
+          <div class="placeholder">Retrato 02</div>
+          <span class="item-tag">Retrato</span>
+          <div class="overlay"><span class="overlay-text">Retrato Natural — 2024</span></div>
+        </div>
+        <div class="gallery-item reveal g6" data-cat="retrato">
+          <div class="placeholder">Retrato 03</div>
+          <span class="item-tag">Retrato</span>
+          <div class="overlay"><span class="overlay-text">Retrato Estudio — 2024</span></div>
+        </div>
+
+        <!-- URBANO -->
+        <div class="gallery-item reveal g1" data-cat="urbano">
+          <div class="placeholder">Urbano 01</div>
+          <span class="item-tag">Urbano</span>
+          <div class="overlay"><span class="overlay-text">Calle Bogotá — 2024</span></div>
+        </div>
+        <div class="gallery-item reveal g3" data-cat="urbano">
+          <div class="placeholder">Urbano 02</div>
+          <span class="item-tag">Urbano</span>
+          <div class="overlay"><span class="overlay-text">Street — 2024</span></div>
+        </div>
+        <div class="gallery-item reveal g5" data-cat="urbano">
+          <div class="placeholder">Urbano 03</div>
+          <span class="item-tag">Urbano</span>
+          <div class="overlay"><span class="overlay-text">Arquitectura — 2024</span></div>
+        </div>
+
+        <!-- PRODUCTO -->
+        <div class="gallery-item wide reveal g2" data-cat="producto">
+          <div class="placeholder">Producto 01</div>
+          <span class="item-tag">Producto</span>
+          <div class="overlay"><span class="overlay-text">Producto Comercial — 2024</span></div>
+        </div>
+        <div class="gallery-item reveal g4" data-cat="producto">
+          <div class="placeholder">Producto 02</div>
+          <span class="item-tag">Producto</span>
+          <div class="overlay"><span class="overlay-text">Still Life — 2024</span></div>
+        </div>
+
+        <!-- EDITORIAL -->
+        <div class="gallery-item reveal g6" data-cat="editorial">
+          <div class="placeholder">Editorial 01</div>
+          <span class="item-tag">Editorial</span>
+          <div class="overlay"><span class="overlay-text">Editorial Revista — 2024</span></div>
+        </div>
+        <div class="gallery-item wide reveal g1" data-cat="editorial">
+          <div class="placeholder">Editorial 02</div>
+          <span class="item-tag">Editorial</span>
+          <div class="overlay"><span class="overlay-text">Editorial Arte — 2024</span></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span class="logo">Nicolás Tarquino</span>
+    <p>© 2024 — Todos los derechos reservados</p>
+    <p>Bogotá, Colombia</p>
+  </footer>
+
+  <script src="/Scripts/Main.js"></script>
+  <script>
+    makeGraffiti('g-hero', true);
+
+    // ── FILTER LOGIC ──
+    const btns = document.querySelectorAll('.filter-btn');
+    const items = document.querySelectorAll('.gallery-item[data-cat]');
+
+    btns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        btns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const f = btn.dataset.filter;
+        items.forEach(item => {
+          if (f === 'all' || item.dataset.cat === f) {
+            item.classList.remove('hidden');
+          } else {
+            item.classList.add('hidden');
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>

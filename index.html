@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Nicolás Tarquino — Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Dancing+Script:wght@700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="./Styles/Styles.css"/>
+  <style>
+    /* ── HERO ── */
+    #hero {
+      position: relative; height: 100vh;
+      display: flex; flex-direction: column;
+      justify-content: center; align-items: center;
+      background: var(--black); overflow: hidden;
+    }
+    .hero-title {
+      font-family: 'Anton', sans-serif;
+      font-size: clamp(5rem, 16vw, 14rem);
+      line-height: 0.85; letter-spacing: -0.02em;
+      text-transform: uppercase; color: var(--white);
+      position: relative; z-index: 2; text-align: center;
+      animation: slideUp 1s cubic-bezier(0.16,1,0.3,1) both;
+    }
+    .hero-title span {
+      display: block;
+      -webkit-text-stroke: 2px var(--white); color: transparent;
+      animation: slideUp 1s cubic-bezier(0.16,1,0.3,1) 0.15s both;
+    }
+    .hero-name {
+      font-family: 'Dancing Script', cursive;
+      font-size: clamp(1.5rem, 4vw, 3rem);
+      color: var(--gray); margin-top: 0.5rem;
+      letter-spacing: 0.1em; position: relative; z-index: 2;
+      animation: slideUp 1s cubic-bezier(0.16,1,0.3,1) 0.3s both;
+    }
+    .hero-scroll {
+      position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+      z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+      font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gray);
+      animation: fadeIn 1s 1s both;
+    }
+    .hero-scroll .line {
+      width: 1px; height: 40px; background: var(--gray);
+      animation: growDown 1.5s 1.2s ease infinite;
+    }
+
+    /* ── SOBRE MÍ ── */
+    #sobre { background: var(--black); padding: 8rem 2.5rem; }
+    #sobre .inner {
+      max-width: 1100px; margin: auto;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start;
+    }
+    .bio p { font-size: 0.8rem; line-height: 1.9; color: #aaa; margin-bottom: 1rem; }
+    .bio strong { color: var(--white); letter-spacing: 0.1em; font-size: 0.7rem; text-transform: uppercase; }
+    .sobre-photo { position: relative; }
+    .sobre-photo .photo-frame {
+      width: 100%; aspect-ratio: 3/4; overflow: hidden;
+    }
+    .sobre-photo .photo-frame img {
+      width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block;
+    }
+    .sobre-photo .photo-frame .ph {
+      width: 100%; height: 100%;
+      background: linear-gradient(160deg,#1a1a1a,#2d2020);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.65rem; letter-spacing: 0.3em; color: #333; text-transform: uppercase;
+    }
+    .sobre-photo::before {
+      content: ''; position: absolute;
+      inset: -8px -8px auto auto; width: 60%; height: 60%;
+      border-top: 1px solid var(--gray); border-right: 1px solid var(--gray);
+      pointer-events: none;
+    }
+    .sobre-photo::after {
+      content: ''; position: absolute;
+      inset: auto auto -8px -8px; width: 60%; height: 60%;
+      border-bottom: 1px solid var(--gray); border-left: 1px solid var(--gray);
+      pointer-events: none;
+    }
+
+    /* ── SERVICIOS ── */
+    #servicios { background: var(--white); color: var(--black); padding: 8rem 2.5rem; }
+    #servicios .inner { max-width: 1100px; margin: auto; }
+    #servicios .header { margin-bottom: 4rem; }
+    .servicios-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem;
+    }
+    .servicio-card {
+      position: relative; overflow: hidden; cursor: pointer;
+      text-decoration: none; color: var(--white);
+      display: block; aspect-ratio: 4/3;
+      background: var(--black);
+    }
+    .servicio-card .s-img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      transition: transform 0.6s ease; filter: brightness(0.5);
+    }
+    .servicio-card .s-ph {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      transition: transform 0.6s ease;
+    }
+    .servicio-card:hover .s-img,
+    .servicio-card:hover .s-ph { transform: scale(1.05); }
+    .servicio-card .s-content {
+      position: absolute; inset: 0; padding: 2rem;
+      display: flex; flex-direction: column; justify-content: flex-end;
+      background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.1) 60%);
+      transition: background 0.4s ease;
+    }
+    .servicio-card:hover .s-content {
+      background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.3) 60%);
+    }
+    .s-num {
+      font-family: 'Anton', sans-serif; font-size: 3.5rem;
+      -webkit-text-stroke: 1px rgba(255,255,255,0.3); color: transparent;
+      line-height: 1; margin-bottom: 0.5rem;
+    }
+    .s-title {
+      font-family: 'Anton', sans-serif; font-size: clamp(1.5rem, 3vw, 2.2rem);
+      text-transform: uppercase; letter-spacing: 0.02em;
+    }
+    .s-desc {
+      font-size: 0.7rem; line-height: 1.7; color: rgba(255,255,255,0.7);
+      margin-top: 0.6rem;
+      max-height: 0; overflow: hidden;
+      transition: max-height 0.4s ease;
+    }
+    .servicio-card:hover .s-desc { max-height: 6rem; }
+    .s-cta {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--white); margin-top: 1rem;
+      opacity: 0; transform: translateY(8px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+    .servicio-card:hover .s-cta { opacity: 1; transform: translateY(0); }
+
+    /* placeholder gradients for servicios */
+    .sg1 { background: linear-gradient(135deg,#0d0d14,#151525); }
+    .sg2 { background: linear-gradient(135deg,#140d0d,#251515); }
+    .sg3 { background: linear-gradient(135deg,#0d1410,#152014); }
+    .sg4 { background: linear-gradient(135deg,#14100d,#221a0f); }
+
+    /* ── CONTACTO ── */
+    #contacto { background: var(--white); color: var(--black); padding: 8rem 2.5rem; }
+    #contacto .inner { max-width: 900px; margin: auto; }
+
+    @media (max-width: 768px) {
+      #sobre .inner { grid-template-columns: 1fr; }
+      .servicios-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="logo" href="/index.html">Nicolás Tarquino</a>
+    <ul>
+      <li><a href="/index.html">Inicio</a></li>
+      <li><a href="/Pages/Fotografia.html">Fotografía</a></li>
+      <li><a href="/Pages/Edicion.html">Edición</a></li>
+      <li><a href="/Pages/Redes.html">Redes Sociales</a></li>
+      <li><a href="/Pages/Filmmaker.html">Filmmaker</a></li>
+      <li><a href="/index.html#contacto">Contacto</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="graffiti-bg" id="g-hero"></div>
+    <div style="position:relative;z-index:2;text-align:center;">
+      <h1 class="hero-title">PORT<span>FOLIO</span></h1>
+      <p class="hero-name">Nicolás Tarquino</p>
+    </div>
+    <div class="hero-scroll">
+      <div class="line"></div>
+      <span>Scroll</span>
+    </div>
+  </section>
+
+  <!-- SOBRE MÍ -->
+  <section id="sobre">
+    <div class="graffiti-bg" id="g-sobre"></div>
+    <div class="inner">
+      <div class="reveal">
+        <h2 class="section-heading" style="color:var(--white)">Sobre<br>mí</h2>
+        <p class="section-sub" style="color:var(--gray)">Nicolás Tarquino</p>
+        <div class="bio" style="margin-top:2rem;">
+          <p><strong>Fotógrafo &amp; Productor Audiovisual</strong></p>
+          <p>Soy un creativo visual con 2 años de experiencia en fotografía y producción audiovisual. Me especializo en retrato, moda, producto, video y contenido para redes sociales.</p>
+          <p>Mi estilo es urbano, con un enfoque fuerte en el contraste entre luz y sombra. He trabajado con artistas, modelos de agencias en Bogotá, marcas y emprendimientos.</p>
+          <p>Domino herramientas como Photoshop, Lightroom, Premiere y After Effects. Mi objetivo es crecer profesionalmente y mostrarle al mundo lo que no se puede dejar de ver.</p>
+        </div>
+      </div>
+      <div class="sobre-photo reveal reveal-delay-2">
+        <div class="photo-frame">
+          <img src="./Assets/img/User.jpg" alt="Nicolás Tarquino"/>
+          <div class="ph">Tu foto aquí</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICIOS -->
+  <section id="servicios">
+    <div class="graffiti-bg" id="g-servicios"></div>
+    <div class="inner">
+      <div class="header reveal">
+        <h2 class="section-heading">Servicios</h2>
+        <p class="section-sub">lo que hago</p>
+      </div>
+      <div class="servicios-grid">
+
+        <a class="servicio-card reveal reveal-delay-1" href="./pages/Fotografia.html">
+          <div class="s-ph sg1"></div>
+          <!-- <img class="s-img" src="./img/ref-fotografia.jpg" alt="Fotografía"/> -->
+          <div class="s-content">
+            <div class="s-num">01</div>
+            <div class="s-title">Fotografía</div>
+            <div class="s-desc">Retratos, moda, producto y editorial. Cada disparo captura la esencia del sujeto con luz y composición únicos.</div>
+            <span class="s-cta">Ver portafolio →</span>
+          </div>
+        </a>
+
+        <a class="servicio-card reveal reveal-delay-2" href="./pages/Redes.html">
+          <div class="s-ph sg2"></div>
+          <!-- <img class="s-img" src="./img/ref-redes.jpg" alt="Redes Sociales"/> -->
+          <div class="s-content">
+            <div class="s-num">02</div>
+            <div class="s-title">Redes Sociales</div>
+            <div class="s-desc">Contenido visual estratégico para Instagram, TikTok y más. Storytelling que conecta marcas con audiencias reales.</div>
+            <span class="s-cta">Ver trabajos →</span>
+          </div>
+        </a>
+
+        <a class="servicio-card reveal reveal-delay-3" href="./pages/Edicion.html">
+          <div class="s-ph sg3"></div>
+          <!-- <img class="s-img" src="./img/ref-edicion.jpg" alt="Edición"/> -->
+          <div class="s-content">
+            <div class="s-num">03</div>
+            <div class="s-title">Edición</div>
+            <div class="s-desc">Retoque fotográfico, colorización y post-producción en Lightroom, Photoshop y Premiere. Resultados que impactan.</div>
+            <span class="s-cta">Ver trabajos →</span>
+          </div>
+        </a>
+
+        <a class="servicio-card reveal reveal-delay-4" href="./Pages/Filmmaker.html">
+          <div class="s-ph sg4"></div>
+          <!-- <img class="s-img" src="./img/ref-filmmaker.jpg" alt="Filmmaker"/> -->
+          <div class="s-content">
+            <div class="s-num">04</div>
+            <div class="s-title">Filmmaker</div>
+            <div class="s-desc">Producción audiovisual de alto impacto. Videos musicales, spots y documentales con narrativa visual sólida.</div>
+            <span class="s-cta">Ver trabajos →</span>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section id="contacto">
+    <div class="graffiti-bg" id="g-contacto"></div>
+    <div class="inner reveal">
+      <h2 class="section-heading">Contacto</h2>
+      <p class="section-sub" style="margin-bottom:3rem;">Hablemos</p>
+      <div class="contact-grid">
+        <a class="contact-card reveal reveal-delay-1" href="mailto:nicolastarquino@email.com">
+          <div class="cc-label">Email</div>
+          <div class="cc-value">nicolastarquino@email.com</div>
+        </a>
+        <a class="contact-card reveal reveal-delay-2" href="https://instagram.com/" target="_blank">
+          <div class="cc-label">Instagram</div>
+          <div class="cc-value">@nicolastarquino</div>
+        </a>
+        <a class="contact-card reveal reveal-delay-3" href="https://wa.me/57300000000" target="_blank">
+          <div class="cc-label">WhatsApp</div>
+          <div class="cc-value">+57 300 000 0000</div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span class="logo">Nicolás Tarquino</span>
+    <p>© 2024 — Todos los derechos reservados</p>
+    <p>Bogotá, Colombia</p>
+  </footer>
+
+  <script src="./Scripts/Main.js"></script>
+  <script>
+    makeGraffiti('g-hero', true);
+    makeGraffiti('g-sobre', true);
+    makeGraffiti('g-servicios', false);
+    makeGraffiti('g-contacto', false);
+  </script>
+</body>
+</html>

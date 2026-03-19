@@ -1,0 +1,189 @@
+/* ── VARIABLES ── */
+:root {
+  --black: #0a0a0a;
+  --white: #f5f5f0;
+  --gray: #c8c8c0;
+  --accent: #e8e0d0;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--black);
+  color: var(--white);
+  font-family: 'Space Mono', monospace;
+  overflow-x: hidden;
+  cursor: crosshair;
+}
+
+/* ── GRAFFITI ── */
+.graffiti-bg {
+  position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 0;
+}
+.graffiti-bg svg { width: 100%; height: 100%; opacity: 0.06; }
+.light .graffiti-bg svg { filter: invert(1); opacity: 0.05; }
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.2rem 2.5rem;
+  mix-blend-mode: difference;
+}
+nav .logo {
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.4rem; color: var(--white); letter-spacing: 0.05em;
+  text-decoration: none;
+}
+nav ul { list-style: none; display: flex; gap: 2.5rem; }
+nav ul a {
+  text-decoration: none; color: var(--white);
+  font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase;
+  position: relative;
+}
+nav ul a::after {
+  content: ''; position: absolute; bottom: -4px; left: 0;
+  width: 0; height: 1px; background: var(--white);
+  transition: width 0.3s ease;
+}
+nav ul a:hover::after, nav ul a.active::after { width: 100%; }
+
+/* ── SECTIONS ── */
+section { position: relative; overflow: hidden; }
+section.light { background: var(--white); color: var(--black); }
+
+/* ── PAGE HERO (secondary pages) ── */
+.page-hero {
+  position: relative; padding: 12rem 2.5rem 6rem;
+  background: var(--black); overflow: hidden;
+  border-bottom: 1px solid #1a1a1a;
+}
+.page-hero-title {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(4rem, 12vw, 10rem);
+  line-height: 0.85; text-transform: uppercase;
+  color: var(--white); position: relative; z-index: 2;
+  animation: slideUp 0.9s cubic-bezier(0.16,1,0.3,1) both;
+}
+.page-hero-title span {
+  -webkit-text-stroke: 2px var(--white); color: transparent;
+}
+.page-hero-sub {
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.6rem; color: var(--gray);
+  margin-top: 0.4rem; position: relative; z-index: 2;
+  animation: slideUp 0.9s cubic-bezier(0.16,1,0.3,1) 0.1s both;
+}
+
+/* ── TYPOGRAPHY ── */
+.section-heading {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(3.5rem, 9vw, 7rem);
+  line-height: 0.9; text-transform: uppercase;
+}
+.section-sub {
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.4rem; color: #666; margin-top: 0.3rem;
+}
+section.light .section-sub { color: #888; }
+
+/* ── GALLERY GRID ── */
+.gallery {
+  max-width: 1200px; margin: auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+.gallery-item {
+  overflow: hidden; position: relative; cursor: pointer;
+  background: #111;
+}
+.gallery-item .placeholder {
+  width: 100%; height: 100%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.65rem; letter-spacing: 0.3em;
+  text-transform: uppercase; color: #333;
+  transition: transform 0.6s ease, filter 0.4s ease;
+}
+.gallery-item img,
+.gallery-item video {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  transition: transform 0.6s ease;
+}
+.gallery-item:hover img,
+.gallery-item:hover video,
+.gallery-item:hover .placeholder { transform: scale(1.05); }
+
+.gallery-item .overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 60%);
+  opacity: 0; transition: opacity 0.4s ease;
+  display: flex; align-items: flex-end; padding: 1.2rem;
+}
+.gallery-item:hover .overlay { opacity: 1; }
+.overlay-text { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--white); }
+
+/* ── CONTACT ── */
+.contact-grid {
+  display: grid; grid-template-columns: repeat(3,1fr); gap: 2rem;
+}
+.contact-card {
+  border: 1px solid rgba(0,0,0,0.15);
+  padding: 2rem 1.5rem; cursor: pointer;
+  transition: background 0.3s, transform 0.3s;
+  text-decoration: none; color: var(--black); display: block;
+}
+.contact-card:hover { background: var(--black); color: var(--white); transform: translateY(-4px); }
+.contact-card .cc-label { font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase; margin-bottom: 0.8rem; opacity: 0.5; }
+.contact-card .cc-value { font-family: 'Anton', sans-serif; font-size: 1rem; letter-spacing: 0.05em; }
+
+/* ── FOOTER ── */
+footer {
+  background: var(--black); color: #444;
+  padding: 2rem 2.5rem;
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase;
+  border-top: 1px solid #1a1a1a;
+}
+footer .logo { font-family: 'Dancing Script', cursive; font-size: 1rem; color: #555; }
+
+/* ── SCROLL REVEAL ── */
+.reveal {
+  opacity: 0; transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.16,1,0.3,1);
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+/* ── ANIMATIONS ── */
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(60px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; } to { opacity: 1; }
+}
+@keyframes growDown {
+  0%,100% { transform: scaleY(0); transform-origin: top; }
+  50%      { transform: scaleY(1); transform-origin: top; }
+}
+
+/* ── PLACEHOLDER GRADIENTS ── */
+.g1 { background: linear-gradient(135deg,#1a1a1a,#2d2d2d); }
+.g2 { background: linear-gradient(135deg,#111,#222); }
+.g3 { background: linear-gradient(135deg,#1d1d1d,#2a2a2a); }
+.g4 { background: linear-gradient(135deg,#0f0f0f,#1e1e1e); }
+.g5 { background: linear-gradient(135deg,#161616,#252525); }
+.g6 { background: linear-gradient(135deg,#130d0d,#201515); }
+
+/* ── MOBILE ── */
+@media (max-width: 768px) {
+  nav ul { gap: 1rem; }
+  nav ul a { font-size: 0.6rem; }
+  .gallery { grid-template-columns: 1fr 1fr; }
+  .contact-grid { grid-template-columns: 1fr; }
+}
